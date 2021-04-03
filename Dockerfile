@@ -9,7 +9,7 @@ ARG REACT_SDK_BRANCH="master"
 ARG JS_SDK_REPO="https://github.com/matrix-org/matrix-js-sdk.git"
 ARG JS_SDK_BRANCH="master"
 
-RUN apt-get update && apt-get install -y git dos2unix \
+RUN apt-get update && apt-get install -y git \
 # These packages are required for building Canvas on architectures like Arm
 # See https://www.npmjs.com/package/canvas#compiling
   build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
@@ -17,7 +17,7 @@ RUN apt-get update && apt-get install -y git dos2unix \
 WORKDIR /src
 
 COPY . /src
-RUN dos2unix /src/scripts/docker-link-repos.sh && bash /src/scripts/docker-link-repos.sh
+RUN bash /src/scripts/docker-link-repos.sh
 RUN yarn --network-timeout=100000 install
 RUN yarn build
 
